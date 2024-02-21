@@ -1,0 +1,389 @@
+/*Estilos generales de la página*/
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    height: auto;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    width: 100%;
+    max-width: 1000%;
+    margin: auto;
+}
+
+header {
+    width: 100%;
+    padding: 20px;
+    /* Flexbox */
+    background-image: linear-gradient(to bottom, rgba(224, 144, 24, 0.52), rgba(34, 23, 2, 0.73)), url(../img/header.jpg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header a {
+    position: absolute;
+    left: 25px;
+}
+
+header a img {
+    width: 45px;
+}
+
+header h1 {
+    color: #fff;
+    font-size: 35px;
+}
+
+#tallas{
+  height: 200px !important;
+  overflow: auto;
+  width: 375px;
+}
+
+.contenedor {
+    margin-top: 20px;
+}
+
+
+.wrap {
+    width: 90%;
+    max-width: 450px;
+    padding: 40px;
+    margin: auto;
+    background: #fff;
+    box-shadow: 0px 0px 3px #52310B;
+}
+
+
+/*Estilos del formulario de login y registro de usuarios*/
+.contenedor-formulario {
+    width: 100%;
+    color: #f2f2f2;
+    padding: 25px 15px;
+    margin-top: -30px;
+}
+
+.contenedor-formulario .formulario {
+    width: 100%;
+}
+
+.contenedor-formulario .formulario .input-group {
+    position: relative;
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+/*Estilos de la etiqueta select*/
+.contenedor-formulario .formulario .input-group select {
+    font-size: 16px;
+    color: #52310B;
+    width: 100%;
+    outline: none;
+    margin-top: 10px;
+    padding: 10px;
+    background: none;
+    border: none;
+    border: 2px solid #FA926D;
+}
+
+/*Estilos de los campos de texto, email y contraseña*/
+.contenedor-formulario .formulario .input-group input[type="text"],
+.contenedor-formulario .formulario .input-group input[type="email"],
+.contenedor-formulario .formulario .input-group input[type="password"],
+.contenedor-formulario .formulario .input-group input[type="file"],
+.contenedor-formulario .formulario .input-group input[type="number"],
+.contenedor-formulario .formulario .input-group textarea {
+    font-size: 16px;
+    color: #52310B;
+    width: 100%;
+    outline: none;
+    margin-top: 40px;
+    padding: 15px;
+    background: none;
+    border: 2px solid #FA926D;
+}
+
+/*Estilos de los campos de texto, email y contraseña cuando están activados*/
+.contenedor-formulario .formulario .input-group input[type="text"]:focus,
+.contenedor-formulario .formulario .input-group input[type="text"]:active,
+.contenedor-formulario .formulario .input-group input[type="email"]:focus,
+.contenedor-formulario .formulario .input-group input[type="email"]:active,
+.contenedor-formulario .formulario .input-group input[type="password"]:focus,
+.contenedor-formulario .formulario .input-group input[type="password"]:active,
+.contenedor-formulario .formulario .input-group input[type="file"]:focus,
+.contenedor-formulario .formulario .input-group input[type="file"]:active,
+.contenedor-formulario .formulario .input-group textarea:focus,
+.contenedor-formulario .formulario .input-group textarea:active {
+    outline: none;
+    border-bottom: 2px solid #F5784C;
+    color: #52310B;
+}
+
+/*Estilos de los campos de texto, email y contraseña cuando se dejan vacíos*/
+.contenedor-formulario .formulario .input-group input[type="text"].error,
+.contenedor-formulario .formulario .input-group input[type="email"].error,
+.contenedor-formulario .formulario .input-group input[type="password"].error,
+.contenedor-formulario .formulario .input-group input[type="file"].error, {
+    border-bottom: 2px solid #D32F2F;
+}
+
+/*Estilos de los label de los campos de texto, email y contraseña*/
+.contenedor-formulario .formulario .input-group input[type="text"].error + label,
+.contenedor-formulario .formulario .input-group input[type="email"].error + label,
+.contenedor-formulario .formulario .input-group input[type="password"].error + label {
+    color: #D32F2F;
+}
+
+table{
+  position: relative;
+  margin-top: 12%;
+  border-collapse:separate;
+  border-style: solid;
+  border: solid #FA926D;
+  width: 95%;
+}
+
+#sin{
+  border: 2px solid #fead91;
+}
+
+/*Estilos de los label*/
+.contenedor-formulario .formulario .input-group label {
+    color: #52310B;
+}
+
+.contenedor-formulario .formulario .input-group .label {
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    margin-left: 15px;
+    font-size: 16px;
+    line-height: 16px;
+    position: absolute;
+    top: 16px;
+    left: 0;
+}
+
+.contenedor-formulario .formulario .input-group .aclaracion {
+    display: block;
+    font-size: 12px;
+    margin-left: 15px;
+    margin-top: 10px;
+    color: #5F5F5F;
+}
+
+.contenedor-formulario .formulario .input-group .labelSelect {
+    margin-left: 15px;
+}
+
+.contenedor-formulario .formulario .input-group label.label.active {
+    top: -12px;
+    font-size: 12px;
+    line-height: 12px;
+    color: #B6B6B6;
+}
+
+
+.contenedor-formulario .formulario .input-group.checkbox label,
+.contenedor-formulario .formulario .input-group.radio label {
+    display: inline-block;
+    cursor: pointer;
+    color: #52310B;
+    position: relative;
+    padding: 5px 15px 5px 51px;
+    font-size: 1em;
+    border-radius: 3px;
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.contenedor-formulario .formulario .input-group.checkbox label:hover,
+.contenedor-formulario .formulario .input-group.radio label:hover {
+    background: #FA926D;
+}
+
+.contenedor-formulario .formulario .input-group.checkbox label:before,
+.contenedor-formulario .formulario .input-group.radio label:before {
+    content: "";
+    display: inline-block;
+    width: 17px;
+    height: 17px;
+    position: absolute;
+    left: 15px;
+    border-radius: 50%;
+    background: none;
+    border: 2px solid #52310B;
+}
+
+.contenedor-formulario .formulario .input-group.error label {
+    color: #D32F2F;
+}
+
+.contenedor-formulario .formulario .input-group.error label:hover {
+    background: rgba(211, 47, 47, 0.2);
+}
+
+.contenedor-formulario .formulario .input-group.error label:before {
+    border: 2px solid #D32F2F;
+}
+
+/*Estilos de los RadioButton*/
+.contenedor-formulario .formulario .input-group.radio input[type="radio"] {
+    display: none;
+}
+
+.contenedor-formulario .formulario .input-group.radio input[type="radio"]:checked + label:before {
+    display: none;
+}
+
+.contenedor-formulario .formulario .input-group.radio input[type="radio"]:checked + label {
+    padding: 5px 15px;
+    background: #F5784C;
+    border-radius: 2px;
+    color: #f2f2f2;
+}
+
+.contenedor-formulario .formulario .input-group.checkbox label:before {
+    border-radius: 3px;
+}
+
+/*Estilos de los CheckBox*/
+.contenedor-formulario .formulario .input-group.checkbox input[type="checkbox"] {
+    display: none;
+}
+
+.contenedor-formulario .formulario .input-group.checkbox input[type="checkbox"]:checked + label:before {
+    display: none;
+}
+
+.contenedor-formulario .formulario .input-group.checkbox input[type="checkbox"]:checked + label {
+    background: #F5784C;
+    color: #f2f2f2;
+    padding: 5px 15px;
+}
+
+/*Estilos de los botones Submit*/
+.contenedor-formulario .formulario button {
+    background: #F5784C;
+    border-radius: 1px;
+    border: 2px solid #f2f2f2;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 16px;
+    padding: 15px;
+    width: 100%;
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.contenedor-formulario .formulario button:hover {
+    background: #52310B;
+}
+
+.contenedor-formulario .formulario input[type='submit'] {
+    background: #F5784C;
+    border-radius: 1px;
+    border: 2px solid #f2f2f2;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 16px;
+    padding: 15px;
+    width: 100%;
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.contenedor-formulario .formulario input[type='submit']:hover {
+    background: #52310B;
+}
+
+/*Estilos de los avatares*/
+.avatar {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.avatar img {
+    width: 200px;
+    height: 190px;
+}
+
+
+/*DISEÑO RESPONSIVE*/
+/* Tablets en horizontal */
+@media screen and (max-width: 1024px) {
+    .formularios {
+        width: 40%;
+    }
+}
+
+/* Móviles en horizontal o tablets en vertical */
+@media screen and (max-width: 768px) {
+    .contenedor {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+    }
+
+    .formularios {
+        width: 50%;
+    }
+}
+
+/* Móviles en vertical */
+@media screen and (max-width: 480px) {
+    .formularios {
+        width: 100%;
+    }
+
+    #tallas{
+      width: 210px;
+    }
+
+    table{
+      margin-top: 20%;
+    }
+    header {
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+    header a {
+        position: relative;
+        left: 0px;
+    }
+
+
+}
+
+footer {
+    background: #2c3e50;
+    width: 100%;
+    padding: 3px;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    /* Flexbox */
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+
+footer h3 {
+    color: aliceblue;
+}
