@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="../css/master.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../pluggins/mensaje.min.css">
+  <script src="../pluggins/mensaje.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <title>Registro</title>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      var user = sessionStorage.getItem('username');
+      var lastCompra=sessionStorage.getItem('lastShoes');
+      var lastMonto=sessionStorage.getItem('lastMonto');
+      if (user != null) {
+        $.ajax({
+          type: 'POST',
+          url: 'regis_compra_user.php',
+          data: {
+            username: user,
+            monto: lastMonto
+          },
+          success: function(data){
+            console.log(data);
+            var carrito = [];
+            var sub = sessionStorage.getItem('carrito');
+            var s = JSON.parse(sub);
+            var flag=Object.keys(s).length;
+            var j=0;
+            for (let i in s) {
+              carrito[i] = s[i];
+              var dato = JSON.parse(carrito[i]);
+              $.ajax({
+                type: 'POST',
+                url: 'regis_compra.php',
+                data: {
+                  id: dato.id,
+                  talla:dato.talla,
+                  cantidad:dato.cantidad,
+                  idCompra:data
+                },
+                success: function(data) {
+                  j++;
+                  if(j==flag){
+                    Swal.fire({
+                      title: "Compra realizada",
+                      type: "success",
+                      html: `
+                        Tu compra ha sido registrada.
+                        <br/>
+                        Haz click <a href='../php/factura.php?name=${user}'>aquí</a> para descargar un pdf con tu factura.
+                      `,
+                      showCloseButton: true,
+                      showCancelButton: false,
+                      focusConfirm: false,
+                      confirmButtonText: `
+                        Todo perfecto!
+                      `,
+                    }).then(function () {
+                      sessionStorage.removeItem('carrito');
+                      window.location.href='../index.html'
+                    });
+                  }
+                }
+              });
+            }
+          },
+          error: function(){
+            console.log('error');
+          }
+        });
+      }else{
+        window.location.href = 'login.php';
+      }
+    });
+  </script>
+</head>
+<body>
+</body>
+</html>
