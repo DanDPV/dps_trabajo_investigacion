@@ -2,7 +2,7 @@
 class conexion
 {
   function conectar(){
-    return mysqli_connect('localhost','root','','fleamarket');
+    return mysqli_connect('localhost','root','','fleamarket_db');
   }
 
   function desconectar($conexion){
@@ -36,6 +36,77 @@ class conexion
 
 
     $this->desconectar($conn);
+  }
+
+  function getVentas(){
+    $conn = $this->conectar();
+
+    $query=$conn->query("select pr.img, pr.Nombre, t.talla, dc.cantidad, c.Monto, c.Fecha, concat(cl.Nombres,' ',cl.Apellidos) 'Cliente', concat(se.Nombres,' ',se.Apellidos) 'Seller' from compra_fin cf inner join compra c on c.id=cf.idCompra inner join detalle_compra dc on dc.id=cf.idDetalle inner join cliente cl on cl.id=c.idCliente inner join productotalla pt on pt.id=dc.idProd inner join rieles pr on pr.id=pt.idProd inner join tallas t on t.id=pt.idTalla inner join cliente se on se.id=pr.idSeller");
+
+    $rows=array();
+
+    while($r=mysqli_fetch_array($query)){
+      $json=array(
+        'img'=>$r['img'],
+        'nombre'=>$r['Nombre'],
+        'cantidad'=>$r['cantidad'],
+        'monto'=>$r['Monto'],
+        'fecha'=>$r['Fecha'],
+        'vendedor'=>$r['Seller'],
+        'comprador'=>$r['Cliente'],
+        'talla'=>$r['talla']
+      );
+
+      $rows[]=$json;
+    }
+    $this->desconectar($conn);
+    return $rows;
+  }
+
+  function getVentasSeller($id){
+    $conn = $this->conectar();
+
+    $query=$conn->query("select pr.img, pr.Nombre, t.talla, dc.cantidad, c.Monto, c.Fecha, concat(cl.Nombres,' ',cl.Apellidos) 'Cliente', concat(se.Nombres,' ',se.Apellidos) 'Seller' from compra_fin cf inner join compra c on c.id=cf.idCompra inner join detalle_compra dc on dc.id=cf.idDetalle inner join cliente cl on cl.id=c.idCliente inner join productotalla pt on pt.id=dc.idProd inner join rieles pr on pr.id=pt.idProd inner join tallas t on t.id=pt.idTalla inner join cliente se on se.id=pr.idSeller where se.username='$id'");
+
+    $rows=array();
+
+    while($r=mysqli_fetch_array($query)){
+      $json=array(
+        'img'=>$r['img'],
+        'nombre'=>$r['Nombre'],
+        'cantidad'=>$r['cantidad'],
+        'monto'=>$r['Monto'],
+        'fecha'=>$r['Fecha'],
+        'vendedor'=>$r['Seller'],
+        'comprador'=>$r['Cliente'],
+        'talla'=>$r['talla']
+      );
+
+      $rows[]=$json;
+    }
+    $this->desconectar($conn);
+    return $rows;
+  }
+
+  function newRiel($data){
+
+    $conn = $this->conectar();
+    try{
+      $cadena="insert into rieles (`Nombre`, `idMarca`, `idSeller`, `Precio`, `img`, `Descripcion`, `Materiales`) values ('".$data['nombre']."',".$data["marca"].",".$data['seller'].",".$data['precio'].",'".$data['img']."','".$data['desc']."', '".$data['mat']."')";
+      $conn->query($cadena);
+      $query=$conn->query("select id from rieles where nombre='".$data['nombre']."' and idSeller='".$data['seller']."' order by id DESC limit 1");
+      $aux=mysqli_fetch_array($query);
+      foreach ($data['tallas'] as $key) {
+         $cadena="insert into productotalla (`idProd`, `idTalla`, `disponibilidad`) values (".$aux['id'].", ".$key['tID'].", ".$key['tVal'].")";
+         $conn->query($cadena);
+      }
+
+      $this->desconectar($conn);
+      return true;
+    }catch(Exception $e){
+      $this->desconectar($conn);
+      return false;
+    }
   }
 
   function updateRiel($nombre, $marca, $precio, $talla, $img, $descripcion, $materiales, $disponibilidad,$id,$idRiel, $cat, $idPT){
@@ -105,9 +176,56 @@ class conexion
     return $rows;
   }
 
+  function getRielSeller($username){
+    $conn = $this->conectar();
+    $query = $conn -> query ("select r.id 'id', pt.id 'idTalla', r.img 'img', r.Nombre, m.Nombre 'marca', concat(s.Nombres,' ',s.Apellidos) 'seller', r.Precio, c.nombre 'categoria', t.talla, pt.disponibilidad from productotalla pt inner join rieles r on r.id=pt.idProd inner join tallas t on t.id=pt.idTalla inner join categorias c on c.id=t.idCategoria inner join marcas m on m.id = r.idMarca inner join cliente s on s.id=r.idSeller where s.username='$username'");
+    $rows=array();
+    while($r=mysqli_fetch_array($query)){
+      $json=array(
+        'id'=>$r['id'],
+        'idTalla'=>$r['idTalla'],
+        'Nombre'=>$r['Nombre'],
+        'marca'=>$r['marca'],
+        'Seller'=>$r['seller'],
+        'Precio'=>$r['Precio'],
+        'Talla'=>$r['talla'],
+        'img'=>$r['img'],
+        'cat'=>$r['categoria'],
+        'disponibilidad'=>$r['disponibilidad']
+      );
+      $rows[]=$json;
+    }
+    $this->desconectar($conn);
+    return $rows;
+  }
+
   function getRielLike($riel){
     $conn = $this->conectar();
     $query = $conn -> query ("select r.id as 'id', t.id as 'idTalla', r.Nombre, m.Nombre as 'marca', concat(s.Nombres,' ',s.Apellidos) as 'Seller', r.Precio as 'Precio', t.Talla as 'Talla', r.img as 'img', t.disponibilidad as 'disponibilidad' from tallas t inner join rieles r on r.id=t.idRiel inner join cliente s on s.id=r.idSeller inner join marcas m on m.id=r.idMarca where r.Nombre like '%".$riel."%'");
+    $rows=array();
+    while($r=mysqli_fetch_array($query)){
+      $json=array(
+        'id'=>$r['id'],
+        'idTalla'=>$r['idTalla'],
+        'Nombre'=>$r['Nombre'],
+        'marca'=>$r['marca'],
+        'Seller'=>$r['seller'],
+        'Precio'=>$r['Precio'],
+        'Talla'=>$r['talla'],
+        'img'=>$r['img'],
+        'cat'=>$r['categoria'],
+        'disponibilidad'=>$r['disponibilidad']
+      );
+
+      $rows[]=$json;
+    }
+    $this->desconectar($conn);
+    return $rows;
+  }
+
+  function getRielLikeSeller($riel,$seller){
+    $conn = $this->conectar();
+    $query = $conn -> query ("select r.id 'id', pt.id 'idTalla', r.img 'img', r.Nombre, m.Nombre 'marca', concat(s.Nombres,' ',s.Apellidos) 'seller', r.Precio, c.nombre 'categoria', t.talla, pt.disponibilidad from productotalla pt inner join rieles r on r.id=pt.idProd inner join tallas t on t.id=pt.idTalla inner join categorias c on c.id=t.idCategoria inner join marcas m on m.id = r.idMarca inner join cliente s on s.id=r.idSeller where s.username='$seller' and r.Nombre like '%".$riel."%'");
     $rows=array();
     while($r=mysqli_fetch_array($query)){
       $json=array(
@@ -543,6 +661,32 @@ class conexion
     $query=$conn->query('select id, concat(Nombres, \' \', Apellidos)  as \'Nombre\', username from cliente where userType=\'seller\'');
     $this->desconectar($conn);
     return $query;
+  }
+
+  function getLastCompra($id) {
+    $conn = $this->conectar();
+    $query = $conn->query('select * from compra where idCliente = '.$id.' order by id desc limit 1');
+    $this->desconectar($conn);
+    return mysqli_fetch_array($query);
+  }
+
+  function getSODetails($soId) {
+    $conn = $this->conectar();
+    $query = $conn->query("select r.nombre, r.Precio, dc.cantidad, r.precio*dc.cantidad as 'subtotal' from compra_fin cf inner join compra c on c.id = cf.idCompra inner join detalle_compra dc on dc.id = cf.idDetalle inner join productotalla pt on pt.id = dc.idProd inner join rieles r on r.id = pt.idProd where c.id = '".$soId."'");
+    $this->desconectar($conn);
+    $rows = array();
+
+    while($r=mysqli_fetch_array($query)) {
+      $sub = array(
+        'nombre'=>$r['nombre'],
+        'precio'=>$r['Precio'],
+        'cantidad'=>$r['cantidad'],
+        'subtotal'=>$r['subtotal']
+      );
+
+      $rows[]=$sub;
+    }
+    return $rows;
   }
 }
  ?>
