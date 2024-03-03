@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formularo de compra</title>
+  <link rel="stylesheet" href="../css/carrito.css">
+  <script src="../js/carrito.js"></script>
+  <script src="../js/jquery-3.4.1.min.js" charset="utf-8"></script>
+</head>
+
+<body>
+  <header>
+    <a href="shopping.php"><img class="flecha" src="../img/left-arrow.png" width="150" alt=""></a>
+
+    <h1>Carrito de compra</h1>
+  </header>
+
+    <nav>
+        <a href="../index.html">Inicio</a>
+        <a href="shopping.php">Stock</a>
+        <a href="intermedia.html">Perfil</a>
+        <a href="promociones.html">Promociones</a>
+    </nav>
+
+  <section class="ftco-section ftco-cart">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 ftco-animate">
+          <div class="cart-list">
+            <table class="table">
+              <thead class="thead-primary">
+                <tr class="text-center">
+                  <th>&nbsp;</th>
+                  <th>Imagen</th>
+                  <th>Producto</th>
+                  <th>Precio</th>
+                  <th>Categoria</th>
+                  <th>Talla</th>
+                  <th>Cantidad</th>
+                  <th>Total</th>
+                  <th>&nbsp;</th>
+                </tr>
+              </thead>
+              <tbody id="cuerpo">
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-end">
+        <div class="col col-lg-5 col-md-6 mt-5 cart-wrap ftco-animate">
+          <div class="cart-total mb-3">
+            <h3>Total de carrito</h3>
+            <p class="d-flex">
+              <span>Subtotal</span>
+              <span id="subtotal">$0.00</span>
+            </p>
+            <p class="d-flex">
+              <span>Entrega</span>
+              <span id="entrega">$10.00</span>
+            </p>
+            <p class="d-flex">
+              <span>Descuento</span>
+              <span id="desc">$0.00</span>
+            </p>
+            <hr>
+            <p class="d-flex total-price">
+              <span>Total</span>
+              <span id="total"></span>
+            </p>
+          </div>
+          <p class="text-center" id='btnCompra'><a class="btn btn-primary py-3 px-4">Proceder a
+              Pagar</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <h3>FleaMarket &copy</h3>
+  </footer>
+
+</body>
+
+</html>
