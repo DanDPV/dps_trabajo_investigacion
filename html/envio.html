@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>Solo Rieles - Envío</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/envio.css">
+    <link rel="stylesheet" href="../pluggins/mensaje.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+    <script src="../js/jquery-3.4.1.min.js" charset="utf-8"></script>
+</head>
+
+<body>
+    <header>
+        <a href="carrito.html"><img src="../img/left-arrow.png" width="150" alt=""></a>
+        <h1>Compra y envío</h1>
+    </header>
+
+    <div class="contenedor">
+        <div class="wrap">
+            <div id="contenedor_registro" class="contenedor-formulario">
+                <form action="javascript:void(0)" class="formulario" name="formulario_registro" id="formulario_registro">
+                    <div class="input-group">
+                        <input type="text" name="nombres" id="nombres" required>
+                        <label class="label" for="nombres">Nombres:</label>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="text" name="apellidos" id="apellidos" required>
+                        <label class="label" for="apellidos">Apellidos:</label>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="text" name="usuario" id="usuario" readonly>
+                        <label class="label" for="usuario">Usuario:</label>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="text" name="telefono" id="telefono" pattern="[0-9]{4}-[0-9]{4}" required>
+                        <label class="label" for="telefono">Teléfono:</label>
+                        <label class="aclaracion">Formato: 0000-0000</label>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="text" name="tarjeta" id="tarjeta" required pattern="[4]{3}[0-9]{13}">
+                        <label class="label" for="tarjeta">Tarjeta de crédito:</label>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="text" name="codigo" id="codigo" required>
+                        <label class="label" for="codigo">Código postal:</label>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="text" name="direccion" id="direccion" required>
+                        <label class="label" for="direccion">Dirección:</label>
+                    </div>
+
+
+                    <input type="submit" id="modificar" value="Comprar">
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <h3>FleaMarket &copy</h3>
+    </footer>
+</body>
+    <script src="../js/pagar.js"></script>
+<script src="../pluggins/mensaje.min.js"></script>
+</html>

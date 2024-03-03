@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>Solo Rieles - Datos del usuario</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/modificar_datos.css">
+    <link rel="stylesheet" href="../pluggins/mensaje.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+    <script src='../js/jquery-3.4.1.min.js' charset='utf-8'></script>
+</head>
+
+<body>
+    <header>
+        <a href="datos_usuario.html"><img src="../img/left-arrow.png" width="150" alt=""></a>
+        <h1>Modificar datos</h1>
+    </header>
+
+    <script type='text/javascript'>
+      $(document).ready(function() {
+        var user = sessionStorage.getItem('username');
+        if (user != null) {
+          $.ajax({
+            type: 'POST',
+            url: 'modify.php',
+            data: {
+              usuario: user
+            },
+            success: function(data) {
+              if (data) {
+                $("body").html(data);
+              }
+            },
+            error: function(){
+              console.log(erro);
+            }
+          });
+        }else{
+          window.location.href = 'login.php';
+        }
+      });
+    </script>
+
+    <footer>
+        <h3>Solo Rieles</h3>
+    </footer>
+</body>
+<script src="../js/objetos.js"></script>
+<script src="../pluggins/mensaje.min.js"></script>
+</html>
